@@ -1,0 +1,15 @@
+OSKARR (beta)
+Developed by xCore
+Current Stage: in beginning of core development
+Version: none...
+	
+	
+Instructions
+	
+Operation of the index is only available through url variables.
+Example: index.php?post=1
+Example: index.php?channel=rage
+Current structure and functionality (including minimum security) is very unstable...
+	
+Without a connected mySQL database, this will not function.
+Details on the database structure are yet to be released...
