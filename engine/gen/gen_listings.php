@@ -347,31 +347,6 @@ class listingsGenerator{
 		";	
 	
 	}
-
-	function generate_list(){
-	
-		$threads = $this->get_threads(null);
-		
-		foreach($threads as $thread){
-
-			$this->build_op($thread, true);
-			$posts = $this->get_posts($thread['id']);
-			
-			if($posts != false){
-			
-				foreach($posts as $post){
-					
-					$this->build_reply($post);
-					
-				}
-				
-			}
-			
-			echo "<br style=\"height:80px;\" />";
-	
-		}
-	
-	}
 	
 }		
 

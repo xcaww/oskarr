@@ -10,9 +10,9 @@
 	
 	function connect_database(){
 	
-		mysql_connect("HOST", "USER", "PASS")
+		mysql_connect("localhost", "root", "rscbU")
 		or die(mysql_error());
-		mysql_select_db("DATABASE");
+		mysql_select_db("oskarr");
 		
 	}
 	

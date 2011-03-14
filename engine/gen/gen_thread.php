@@ -1,4 +1,5 @@
 <?php
+
 	require("./engine/gen/gen_listings.php");
 
 	function generate_thread($threadID){

@@ -66,12 +66,8 @@ if(isset($_GET['page'])){
 	if(ctype_alnum($_GET['channel'])){
 
 		$URL_channel = (string) $_GET['channel'];
-		
-		require("./engine/gen/gen_listings.php");
-		
-		$listGen = new listingsGenerator($URL_i, $URL_channel);
-		$listGen->generate_list();
-		//pageNumGen->generate_pageNum($URL_i, $URL_channel);
+		require("./engine/gen/gen_channel.php");
+		generate_channel($URL_i, $URL_channel);
 		
 	}
 	
