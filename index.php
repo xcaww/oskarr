@@ -38,7 +38,7 @@ if(isset($_GET['i'])){
 	
 }else{
 
-	$URL_i = "0";
+	$URL_i = 0;
 	
 }
 
@@ -47,7 +47,9 @@ if(isset($_GET['page'])){
 
 	if(ctype_alnum($_GET['page'])){
 
-		$URL_index = (string) $_GET['page'];
+		$URL_page = (string) $_GET['page'];
+		require("./engine/gen/gen_page.php");
+		generate_page($URL_page, $URL_i);
 		
 	}
 //GET post VAR	

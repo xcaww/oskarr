@@ -16,4 +16,6 @@
 	
 */
 
+function build_page($pageData){}
+
 ?>
