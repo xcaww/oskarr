@@ -1,0 +1,52 @@
+~URLs
+With the modifications of htaccess the final/public products of oskarr will be using 'clean URLs' to give a sense of basic functionality and 'ease-of-use' for the end user. During the early development, these clean URLs will not be used and instead, the raw file/parameters will be.
+For example;
+	/index.php?post=2
+	/index.php?channel=rage
+	/index.php?channel=rage&i=4
+	/index.php?page=whut
+Will be in similar format as
+	/post/2
+	/chan/rage
+	/chan/rage/4
+	/page/whut
+Much better? Yes?	
+	
+	
+~URLs, pages
+Sure an imageboard is made up of the two core pages, being the channel indexing and the posts/threads themselves. But what about the main index page for the site? What about a contact form? I NEED MOAR PAGES!!
+The pages will be interpreted by the parameter 'page' as ?page= (or as /page/ later on) where the parameter can either be an integer (yes, we only want whole numbers) or an alphabetical string. The integer will be mapped by to the corresponding page (via ID). Even though using the integer parameter will not be favoured or even used by many, it is still good to have there.
+
+
+~Pages
+Preformatted pages (index, channel lists, etc)
+>Pluggable MVC (maybe, maybe MVC...) sub-structure for custom pages? (modular page building, using admin panel)
+>Custom loaded, static pages. Given generic page template for structure and consistency?
+
+
+~Users
+(proposed policy on minimal direct user logging, TBA)
+copy&paste from my springboard:
+
+# Use a user account system to simply store preferences, or if the user wishes to use their name to post (mainly for admins or those who don't like being anon...)
+# Login page (or in nav), etc...
+# 
+# Settings
+# >Date/time display
+# >Style sheet
+# >Display preferences
+# >Private/public favourites?
+# >List of uploaded images?
+# >Ability to track own posts/threads
+# >MORE!
+
+
+~Posting
+copy&paste from my springboard:
+
+# on 'Post', show loading gif, once loaded and verified, grab that data back out of DB (security reasons) and cram it in the page (using AJAX) then remove the data from the fields in the new thread/post form
+
+
+~TL;DR
+Stylised TL;DR feature...
+	
