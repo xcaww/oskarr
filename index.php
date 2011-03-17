@@ -19,26 +19,32 @@
 */
 
 
-//load core function library
+//load core function library + logger
 require("./engine/core.php");
+require("./engine/database.class.php");
 
-//kickstart (lol, the names are self-explainatary)
+//Let's roll...
 $timer_start = execution_time(); 
+$database = new database();
 show_header();
-connect_database();
+$database->connect_database();
 
 //GET i VAR
 if(isset($_GET['i'])){
 
 	if(ctype_digit($_GET['i'])){
-
+	
 		$URL_i = (string) $_GET['i'];
+		
+	}else{
+	
+		$URL_i = "0";
 		
 	}
 	
 }else{
 
-	$URL_i = 0;
+	$URL_i = "0";
 	
 }
 
@@ -49,7 +55,7 @@ if(isset($_GET['page'])){
 
 		$URL_page = (string) $_GET['page'];
 		require("./engine/gen/gen_page.php");
-		generate_page($URL_page, $URL_i);
+		$pageGen = new generatePage($URL_page, $URL_i);
 		
 	}
 //GET post VAR	
@@ -72,8 +78,18 @@ if(isset($_GET['page'])){
 		generate_channel($URL_i, $URL_channel);
 		
 	}
+//GET handle VAR	
+}elseif(isset($_GET['handle'])){
+
+	if(ctype_alnum($_GET['handle'])){
+
+		$URL_handle = (string) $_GET['handle'];
+		//Needs to be written...
+		
+	}
 	
 }
+
 
 //end execution timer
 echo "<br/><p class=\"page_time\" align=\"center\">Generated page in " . round(execution_time() - $timer_start, 3) . " seconds</p></html>";    

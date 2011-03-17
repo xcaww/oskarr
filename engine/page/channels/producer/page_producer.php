@@ -14,9 +14,10 @@
 	
 */
 
-class pageProducer{
+class pageProducer extends database{
 
 	function __construct($pageDetails, $pageQuery){
+	
 	
 		$this->pageDataArray['pageName'] = $pageDetails['name'];
 		$this->pageDataArray['pageID'] = $pageDetails['id'];
@@ -24,7 +25,7 @@ class pageProducer{
 		$this->pageDataArray['pageQuery'] = $pageQuery;
 		
 		require_once("./engine/page/" . $this->pageDataArray['pageAddress'] . "/function/page_function.php"); //core functions; other function scripts may be called later on during this class!
-		$this->database = new database();
+		$this->channels = new channels();
 		$this->construct_data();
 	
 	}
@@ -43,7 +44,12 @@ class pageProducer{
 		
 	}
 	
-	function construct_data(){}
+	function construct_data(){
+	
+		$this->pageTemplate = "main_index.php";
+		$this->pageDataArray['channels'] = $this->channels->channels;
+		
+	}
 	//Everything to build each piece of data for the custom page is called from here.
 	
 	function produce_page(){

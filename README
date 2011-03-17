@@ -13,3 +13,10 @@ Current structure and functionality (including minimum security) is very unstabl
 	
 Without a connected mySQL database, this will not function.
 Details on the database structure are yet to be released...
+
+
+Current
+
+Channel and page listings (channel indexs & threads) are being moved to comply with the generic page generation structure.
+Error logger
+Database query function

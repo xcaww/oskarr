@@ -1,6 +1,6 @@
 <?php
 	
-class listingsGenerator{
+class listingsGenerator extends database{
 
 	function __construct($page, $channelAddress){
 		
@@ -14,13 +14,13 @@ class listingsGenerator{
 	
 	function eval_max_pages(){
 	
-		$rows = mysql_query("
+		$result = parent::query("
 		SELECT * 
 		FROM posts
 		");
 		
-		$num_rows = mysql_num_rows($rows);
-		mysql_free_result($rows);
+		$num_rows = mysql_num_rows($result);
+		mysql_free_result($result);
 		
 		$this->maxPages = ceil($num_rows/$this->limitLength); 
 	
@@ -45,35 +45,42 @@ class listingsGenerator{
 	
 	function eval_thread_activity($thread){
 	
-		$rows = mysql_query("
+		$result = parent::query("
 		SELECT * 
 		FROM posts
 		WHERE image <> '0' AND id = '" . $thread . "'
 		OR image <> '0' AND title = '" . $thread . "' AND identifier = 'post'
 		");
 		
-		if(mysql_num_rows($rows)){
-			$countResult['images'] = mysql_num_rows($rows);
+		if(mysql_num_rows($result)){
+		
+			$countResult['images'] = mysql_num_rows($result);
+			
 		}else{
+		
 			$countResult['images'] = 0;
+			
 		}
 		
-		mysql_free_result($rows);
+		mysql_free_result($result);
 		
-		$rows = mysql_query("
+		$result = parent::query("
 		SELECT * 
 		FROM posts
 		WHERE title = '" . $thread . "' AND identifier = 'post'
 		");
 		
-		if(mysql_num_rows($rows)){
-			$countResult['posts'] = mysql_num_rows($rows);
+		if(mysql_num_rows($result)){
+		
+			$countResult['posts'] = mysql_num_rows($result);
+			
 		}else{
+		
 			$countResult['posts'] = 0;
+			
 		}
 		
-		mysql_free_result($rows);
-		
+		mysql_free_result($result);
 		return $countResult;
 		
 	}
@@ -84,7 +91,7 @@ class listingsGenerator{
 		
 		if(ctype_digit($threadID)){
 		
-			$posts = mysql_query("
+			$result = parent::query("
 			SELECT *
 			FROM posts
 			WHERE id = " . $threadID . "
@@ -92,7 +99,7 @@ class listingsGenerator{
 		
 		}else{
 	
-			$posts = mysql_query("
+			$result = parent::query("
 			SELECT *
 			FROM posts
 			WHERE identifier = 'thread' AND channel = '" . $this->channel['id'] . "'
@@ -101,7 +108,7 @@ class listingsGenerator{
 		
 		}
 		
-		while($row = mysql_fetch_array($posts)){
+		while($row = mysql_fetch_array($result)){
 		
 			$thread[$i]['id'] = $row['id'];
 			$thread[$i]['userid'] = $row['userid'];
@@ -112,8 +119,7 @@ class listingsGenerator{
 			
 		}
 		
-		mysql_free_result($posts);
-	
+		mysql_free_result($result);
 		return $thread;
 	
 	}
@@ -122,13 +128,13 @@ class listingsGenerator{
 	
 		$i = 0;
 	
-		$posts = mysql_query("
+		$result = parent::query("
 		SELECT *
 		FROM posts
 		WHERE title = '" . $thread_id . "' AND channel = '" . $this->channel['id'] . "'
 		");
 		
-		while($row = mysql_fetch_array($posts)){
+		while($row = mysql_fetch_array($result)){
 		
 			$post[$i]['id'] = $row['id'];
 			$post[$i]['userid'] = $row['userid'];
@@ -139,12 +145,7 @@ class listingsGenerator{
 	
 		}
 		
-		mysql_free_result($posts);
-		
-		if(!isset($post)){
-			$post = false;
-		}
-	
+		mysql_free_result($result);
 		return $post;
 	
 	}
@@ -155,19 +156,31 @@ class listingsGenerator{
 	$threadActivity = $this->eval_thread_activity($post['id']);
 	
 	if($threadActivity['posts'] > 1){
+	
 		$replyActivity = $threadActivity['posts'] . " replies";
+		
 	}elseif($threadActivity['posts'] == "1"){
+	
 		$replyActivity = "1 reply";
+		
 	}elseif($threadActivity['posts'] == "0"){
+	
 		$replyActivity = "no replies";
+		
 	}
 	
 	if($threadActivity['images'] > 1){
+	
 		$imageActivity = $threadActivity['images'] . " images";
+		
 	}elseif($threadActivity['images'] == "1"){
+	
 		$imageActivity = "1 image";
+		
 	}elseif($threadActivity['images'] == "0"){
+	
 		$imageActivity = "no images";
+		
 	}	
 	
 	//first row - reply and image count

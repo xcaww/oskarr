@@ -1,80 +1,88 @@
 <?php
 
-function validate_query($pageIdentifier, $pageQuery){
+class generatePage extends database{
 
-	if(ctype_alnum($pageIdentifier) == true && is_integer($pageQuery) == true && strlen($pageIdentifier) < 33 && $pageQuery < 33){
+	function __construct($pageIdentifier, $pageQuery){
 	
-		return true;
-		
-	}else{
+	$this->page = $pageIdentifier;
+	$this->query = $pageQuery;
 	
-		return false;
+		if($this->validate_query() && $this->find_page()){
 		
+			$this->generate_page();
+		
+		}else{
+		
+		send_error_log("page generation failed: " . $this->page . "?" . $this->query);
+		
+		}
+
 	}
 
-}
+	function validate_query(){
 
-function find_page($page){
-
-	
-
-	if(is_integer($page)){
-	
-		$page = mysql_query("
-		SELECT *
-		FROM pages
-		WHERE id = '" . $page . "'
-		");
-	
-	}elseif(is_string($page)){
-	
-		$page = mysql_query("
-		SELECT *
-		FROM pages
-		WHERE address = '" . $page . "'
-		");	
-	
-	}else{
-	
-		return false;
+		if(ctype_alnum($this->page) == true && ctype_alnum($this->query) == true && strlen($this->page) < 33 && strlen($this->query) < 33){
 		
-	}
-	
-	while($row = mysql_fetch_array($page)){
+			return true;
+			
+		}else{
 
-		$pageDetails['id'] = $row['id'];
-		$pageDetails['name'] = $row['name'];
-		$pageDetails['address'] = $row['address'];
-		
-	}
-	
-	if(!isset($pageDetails)){
-	
-		return false;
-		
-	}
-	
-	return $pageDetails;
-
-}
-
-function generate_page($pageIdentifier, $pageQuery){
-	
-	if(validate_query($pageIdentifier, $pageQuery)){
-	
-		$pageDetails = find_page($pageIdentifier);
-		
-		if($pageDetails != false){
-		
-			require("./engine/page/" . $pageDetails['address'] . "/producer/page_producer.php");
-
-			$producer = new pageProducer($pageDetails, $pageQuery);
-			$producer->produce_page();	
+			return false;
 			
 		}
-	
+
 	}
-	
+
+	function find_page(){
+
+		if(ctype_digit($this->page)){
+		
+			$result = parent::query("
+			SELECT *
+			FROM pages
+			WHERE id = '" . $this->page . "'
+			");
+		
+		}elseif(ctype_alnum($this->page)){
+		
+			$result = parent::query("
+			SELECT *
+			FROM pages
+			WHERE address = '" . $this->page . "'
+			");	
+		
+		}else{
+		
+			return false;
+			
+		}
+		
+		while($row = mysql_fetch_array($result)){
+
+			$this->pageDetails['id'] = $row['id'];
+			$this->pageDetails['name'] = $row['name'];
+			$this->pageDetails['address'] = $row['address'];
+		}
+		
+		if(!isset($this->pageDetails)){
+		
+			return false;
+			
+		}
+		
+		return true;
+
+	}
+
+	function generate_page(){
+			
+		require("./engine/page/" . $this->pageDetails['address'] . "/producer/page_producer.php");
+
+		$producer = new pageProducer($this->pageDetails, $this->query);
+		$producer->produce_page();	
+		
+	}
+
 }
 
 ?>
