@@ -12,36 +12,6 @@ margin:0;
 padding:4px 0 4px 4px;
 }
 
-
-#post_stats_op {
-background-color: #FFF;
-font-size:9pt;
-text-align: right;
-margin: 0;
-padding-right: 1px;
-color: #7d7d7d;
-}
-
-#post_title_op{
-background-color:#6e6e6e;
-font-family:Consolas;
-font-size:12.5pt;
-color:#FFF;
-margin:0;
-padding:3px 5px;
-height: 23px;
-}
-
-#post_title_op a{
-color:#FFF;
-text-decoration:none;
-}
-
-#post_title_op a:hover {
-color:#4292d5;
-}
-
-
 #post_title {
 background-color:#efefef;
 font-family:Consolas;

@@ -12,6 +12,15 @@ margin:0;
 padding:4px 0 4px 4px;
 }
 
+#post_stats_op {
+background-color: #FFF;
+font-size:9pt;
+text-align: right;
+margin: 0;
+padding-right: 1px;
+color: #bfbfbf;
+}
+
 #post_title_op{
 background-color:#6e6e6e;
 font-family:Consolas;
@@ -30,7 +39,6 @@ text-decoration:none;
 #post_title_op a:hover {
 color:#4292d5;
 }
-
 
 #post_title {
 background-color:#efefef;
