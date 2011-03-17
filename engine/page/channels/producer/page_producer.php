@@ -47,6 +47,7 @@ class pageProducer extends database{
 	function construct_data(){
 	
 		$this->pageTemplate = "main_index.php";
+		$this->pageDataArray['styles'] = "main_index.css";
 		$this->pageDataArray['channels'] = $this->channels->channels;
 		
 	}

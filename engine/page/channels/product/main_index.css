@@ -1,0 +1,36 @@
+/* Channels */
+
+#channel_title {
+background-color:#6e6e6e;
+font-family:Consolas;
+font-size:12.5pt;
+color:#FFF;
+margin-bottom:25px;
+padding:3px 5px;
+height: 23px;
+width: 100%;
+}
+
+#channel_list {
+background-color: #e1e1e1;
+width:100%;
+vertical-align:text-top;
+padding: 5px;
+}
+
+#channel_list p {
+font-family:Tahoma;
+font-size:11pt;
+color:#000;
+text-align: left;
+line-height: 2;
+}
+
+#channel_list a {
+color:#4292d5;
+margin: 0 10px 0 10px;
+}
+
+td.channel_fixrow {
+margin: 0;
+}

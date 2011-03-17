@@ -92,7 +92,7 @@ if(isset($_GET['page'])){
 
 
 //end execution timer
-echo "<br/><p class=\"page_time\" align=\"center\">Generated page in " . round(execution_time() - $timer_start, 3) . " seconds</p></html>";    
+echo "<br/><p class=\"page_time\" align=\"center\">Generated page in " . round(execution_time() - $timer_start, 3) . " seconds</p></body></html>";    
 	
 	
 ?>
