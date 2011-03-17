@@ -1,5 +1,27 @@
 <?php
 
+class core{
+
+	function database_connect(){
+	
+		$this->database = new database();
+		$this->database->connect_database();
+		
+	}
+
+	function database_query($databaseQuery){
+	
+		return $this->database->query($databaseQuery);
+		
+	}
+	
+	function generate_page($URL_page, $URL_i, $URL_mapped = false){
+	
+		require("./engine/gen/gen_page.php");
+		$pageGen = new generatePage($URL_page, $URL_i, $URL_mapped);
+		
+	}
+
 	function execution_time(){ 
 	
 		list ($msec, $sec) = explode(' ', microtime()); 
@@ -12,7 +34,7 @@
 	
 		$time = time();
 	
-		mysql_query("
+		$this->database_query("
 		INSERT INTO 
 		log
 		(time, message) 
@@ -36,7 +58,7 @@
 	
 		$time = time();
 	
-		mysql_query("
+		$this->database_query("
 		INSERT INTO 
 		error_log
 		(time, ip, message) 
@@ -74,7 +96,7 @@
 	
 	if($channelAddress != false){
 	
-		$result = mysql_query("
+		$result = $this->database_query("
 		SELECT *
 		FROM channels
 		WHERE address = '" . $channelAddress . "'
@@ -83,7 +105,7 @@
 	
 	}elseif($postID != false){
 	
-		$result = mysql_query("
+		$result = $this->database_query("
 		SELECT channel
 		FROM posts
 		WHERE id = '" . $postID . "'
@@ -91,13 +113,15 @@
 		");
 		
 		while($row = mysql_fetch_array($result)){
+		
 			$channelID = $row['channel'];
+			
 		}
 		
 		mysql_free_result($result);
 		unset($row);
 	
-		$result = mysql_query("
+		$result = $this->database_query("
 		SELECT *
 		FROM channels
 		WHERE id = '" . $channelID . "'
@@ -107,6 +131,7 @@
 	}
 	
 		while($row = mysql_fetch_array($result)){
+		
 			$found_channel['id'] = $row['id'];
 			$found_channel['name'] = $row['name'];
 			$found_channel['address'] = $row['address'];
@@ -119,5 +144,7 @@
 		return @$found_channel;
 		
 	}
+	
+}
 	
 ?>

@@ -1,21 +1,26 @@
 <?php
 
-class generatePage extends database{
+class generatePage extends core{
 
-	function __construct($pageIdentifier, $pageQuery){
+	function __construct($pageIdentifier, $pageQuery, $mappedPage = false){
 	
-	$this->page = $pageIdentifier;
-	$this->query = $pageQuery;
-	
-		if($this->validate_query() && $this->find_page()){
+		$this->page = $pageIdentifier;
+		$this->query = $pageQuery;
 		
-			$this->generate_page();
+		if($mappedPage != false){
 		
+			$this->mapped = $mappedPage;
+			
 		}else{
 		
-		send_error_log("page generation failed: " . $this->page . "?" . $this->query);
-		
+			$this->mapped = false;
+			
 		}
+		
+		parent::database_connect();
+		$this->validate_query();
+		$this->find_page();
+		$this->generate_page();
 
 	}
 
@@ -27,7 +32,7 @@ class generatePage extends database{
 			
 		}else{
 
-			return false;
+			parent::send_error_log("bad page query: " . $this->page . "?" . $this->query);
 			
 		}
 
@@ -37,7 +42,7 @@ class generatePage extends database{
 
 		if(ctype_digit($this->page)){
 		
-			$result = parent::query("
+			$result = parent::database_query("
 			SELECT *
 			FROM pages
 			WHERE id = '" . $this->page . "'
@@ -45,7 +50,7 @@ class generatePage extends database{
 		
 		}elseif(ctype_alnum($this->page)){
 		
-			$result = parent::query("
+			$result = parent::database_query("
 			SELECT *
 			FROM pages
 			WHERE address = '" . $this->page . "'
@@ -53,20 +58,21 @@ class generatePage extends database{
 		
 		}else{
 		
-			return false;
+			parent::send_error_log("bad page request: " . $this->page . "?" . $this->query);
 			
 		}
-		
+
 		while($row = mysql_fetch_array($result)){
 
 			$this->pageDetails['id'] = $row['id'];
 			$this->pageDetails['name'] = $row['name'];
 			$this->pageDetails['address'] = $row['address'];
+			
 		}
 		
 		if(!isset($this->pageDetails)){
 		
-			return false;
+			parent::send_error_log("could not find page: " . $this->page . "?" . $this->query);
 			
 		}
 		
@@ -78,7 +84,7 @@ class generatePage extends database{
 			
 		require("./engine/page/" . $this->pageDetails['address'] . "/producer/page_producer.php");
 
-		$producer = new pageProducer($this->pageDetails, $this->query);
+		$producer = new pageProducer($this->pageDetails, $this->query, $this->mapped);
 		$producer->produce_page();	
 		
 	}

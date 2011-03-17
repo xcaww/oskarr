@@ -1,31 +1,29 @@
 <?php
 
 /*
+
 	@ OSKARR (beta)
 	@
-	@ ||...............||	
-	@    page_function
-	@ ||...............||
+	@ page_function
 	@
-	@ ||...............................................................||
-	@   The functions described here and other scripts in the directory
-	@   (if necessary) are used by the producers, acting as a backend
-	@   for the generation of the page
-	@ ||...............................................................||
+	@ The functions described here and other scripts in the directory
+	@ (if necessary) are used by the producers, acting as a backend
+	@ for the generation of the page
 	
 */
 
-class channels extends database{
+class channels extends core{
 
 	function __construct(){
 	
+		parent::database_connect();
 		$this->get_channels();
 	
 	}
 	
 	function get_channels(){
 	
-		$result = parent::query("
+		$result = parent::database_query("
 		SELECT *
 		FROM channels
 		");

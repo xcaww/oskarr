@@ -24,10 +24,10 @@ require("./engine/core.php");
 require("./engine/database.class.php");
 
 //Let's roll...
-$timer_start = execution_time(); 
-$database = new database();
-show_header();
-$database->connect_database();
+$core = new core();
+$timer_start = $core->execution_time(); 
+$core->show_header();
+$core->database_connect();
 
 //GET i VAR
 if(isset($_GET['i'])){
@@ -54,8 +54,7 @@ if(isset($_GET['page'])){
 	if(ctype_alnum($_GET['page'])){
 
 		$URL_page = (string) $_GET['page'];
-		require("./engine/gen/gen_page.php");
-		$pageGen = new generatePage($URL_page, $URL_i);
+		$core->generate_page($URL_page, $URL_i);
 		
 	}
 //GET post VAR	
@@ -64,8 +63,7 @@ if(isset($_GET['page'])){
 	if(ctype_alnum($_GET['post'])){
 
 		$URL_post = (string) $_GET['post'];
-		require("./engine/gen/gen_thread.php");
-		generate_thread($URL_post);
+		$core->generate_page("post", $URL_post);
 		
 	}
 //GET channel VAR	
@@ -74,8 +72,7 @@ if(isset($_GET['page'])){
 	if(ctype_alnum($_GET['channel'])){
 
 		$URL_channel = (string) $_GET['channel'];
-		require("./engine/gen/gen_channel.php");
-		generate_channel($URL_i, $URL_channel);
+		$core->generate_page("channel", $URL_i, $URL_channel);
 		
 	}
 //GET handle VAR	
@@ -92,7 +89,7 @@ if(isset($_GET['page'])){
 
 
 //end execution timer
-echo "<br/><p class=\"page_time\" align=\"center\">Generated page in " . round(execution_time() - $timer_start, 3) . " seconds</p></body></html>";    
+echo "<br/><p class=\"page_time\" align=\"center\">Generated page in " . round($core->execution_time() - $timer_start, 3) . " seconds</p></body></html>";    
 	
 	
 ?>

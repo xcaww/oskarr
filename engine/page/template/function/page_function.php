@@ -1,18 +1,24 @@
 <?php
 
 /*
+
 	@ OSKARR (beta)
 	@
-	@ ||...............||	
-	@    page_function
-	@ ||...............||
+	@ page_function
 	@
-	@ ||...............................................................||
-	@   The functions described here and other scripts in the directory
-	@   (if necessary) are used by the producers, acting as a backend
-	@   for the generation of the page
-	@ ||...............................................................||
+	@ The functions described here and other scripts in the directory
+	@ (if necessary) are used by the producers, acting as a backend
+	@ for the generation of the page
 	
 */
 
+class template extends core{
+
+	function __construct(){
+	
+		parent::database_connect();
+	
+	}
+	
+}
 ?>
