@@ -9,7 +9,7 @@ class generatePage extends core{
 		
 		if($pageNumber != false){
 		
-			$this->number = $mappedPage;
+			$this->number = $pageNumber;
 			
 		}else{
 		
@@ -31,7 +31,7 @@ class generatePage extends core{
 			return true;
 			
 		}else{
-
+		
 			parent::send_error_log("bad page query: " . $this->page . "?" . $this->query . " -> " . $this->number);
 			
 		}

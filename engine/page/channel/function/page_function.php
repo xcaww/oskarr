@@ -6,7 +6,7 @@ class channel extends core{
 		
 		parent::database_connect();
 		$this->pageNumber = $page;
-		$this->limitLength = "10";
+		$this->limitLength = "2";
 		$this->channel = parent::get_channel($channel, false);
 		$this->eval_max_pages();
 		$this->eval_limits();
@@ -18,28 +18,39 @@ class channel extends core{
 		$result = parent::database_query("
 		SELECT * 
 		FROM posts
+		WHERE channel = '" . $this->channel['id'] . "' AND identifier = 'thread'
 		");
 		
 		$num_rows = mysql_num_rows($result);
 		mysql_free_result($result);
 		
 		$this->maxPages = ceil($num_rows/$this->limitLength); 
-	
+
 	}
 	
 	function eval_limits(){
-	
-		if($this->pageNumber < 1){
-		
-			$this->pageNumber = 1;
+
+		if($this->pageNumber < 2){
 			
-		}elseif($this->pageNumber > $this->maxPages){
+			$limitStart = "0";
+			
+		}elseif($this->pageNumber >= $this->maxPages){
 		
 			$this->pageNumber = $this->maxPages;
 			
+			
+				if($this->pageNumber == "1"){
+				
+					$limitStart = "0";
+			
+				}else{
+					
+					$limitStart = ($this->pageNumber - 1) * $this->limitLength;
+					
+				}
+				
 		}
-		
-		$limitStart = ($this->pageNumber - 1) * $this->limitLength;
+
 		$this->selectionLimits = "LIMIT " . $limitStart . ", " . $this->limitLength;
 	
 	}
