@@ -6,7 +6,7 @@ class channel extends core{
 		
 		parent::database_connect();
 		$this->pageNumber = $page;
-		$this->limitLength = "2";
+		$this->limitLength = "10";
 		$this->channel = parent::get_channel($channel, false);
 		$this->eval_max_pages();
 		$this->eval_limits();
@@ -16,7 +16,7 @@ class channel extends core{
 	function eval_max_pages(){
 	
 		$result = parent::database_query("
-		SELECT * 
+		SELECT id
 		FROM posts
 		WHERE channel = '" . $this->channel['id'] . "' AND identifier = 'thread'
 		");

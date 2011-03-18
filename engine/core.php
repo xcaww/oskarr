@@ -17,9 +17,17 @@ class core{
 	
 	function generate_page($URL_page, $URL_query, $URL_i = false){
 	
-		require("./engine/gen/gen_page.php");
+		require("./engine/page.php");
 		$pageGen = new generatePage($URL_page, $URL_query, $URL_i);
 		
+	}
+	
+	function call_module($module){
+	
+		require("./engine/module/" . $module['moduleName'] . "/" . $module['moduleName'] . ".php");
+		$this->module = new module($module);
+		return $this->module->process_module();
+	
 	}
 
 	function execution_time(){ 

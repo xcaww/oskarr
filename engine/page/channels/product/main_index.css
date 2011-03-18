@@ -6,16 +6,25 @@ font-family:Consolas;
 font-size:12.5pt;
 color:#FFF;
 margin-bottom:25px;
-padding: 3px 5px;
+padding: 0;
 height: 23px;
 width: 100%;
+}
+
+#channel_stats {
+background-color: #FFF;
+font-size:9pt;
+text-align: right;
+margin: 0;
+padding-right: 1px;
+color: #bfbfbf;
 }
 
 #channel_list {
 background-color: #e1e1e1;
 width:100%;
 vertical-align:text-top;
-padding: 5px;
+padding: 0;
 }
 
 #channel_list p {
@@ -24,6 +33,7 @@ font-size:11pt;
 color:#000;
 text-align: left;
 line-height: 2;
+padding: 5px;
 }
 
 #channel_list a {

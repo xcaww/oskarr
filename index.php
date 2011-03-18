@@ -21,7 +21,7 @@
 
 //load core function library + logger
 require("./engine/core.php");
-require("./engine/database.class.php");
+require("./engine/database.php");
 
 //Let's roll...
 $core = new core();

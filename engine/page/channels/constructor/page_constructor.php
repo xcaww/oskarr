@@ -11,9 +11,11 @@ class pageConstructor extends pageProducer{
 	
 	function construct_data(){
 	
+		
 		$this->arrayItems['template'] = "main_index.php";
 		$this->arrayItems['styles'] = "main_index.css";
 		$this->arrayItems['channels'] = $this->channels->get_channels();
+		$this->arrayItems['statistics'] = $this->channels->get_channel_statistics();
 		
 		return $this->arrayItems;
 		
