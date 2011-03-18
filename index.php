@@ -72,7 +72,7 @@ if(isset($_GET['page'])){
 	if(ctype_alnum($_GET['channel'])){
 
 		$URL_channel = (string) $_GET['channel'];
-		$core->generate_page("channel", $URL_i, $URL_channel);
+		$core->generate_page("channel", $URL_channel, $URL_i);
 		
 	}
 //GET handle VAR	
@@ -88,8 +88,15 @@ if(isset($_GET['page'])){
 }
 
 
-//end execution timer
-echo "<br/><p class=\"page_time\" align=\"center\">Generated page in " . round($core->execution_time() - $timer_start, 3) . " seconds</p></body></html>";    
+//end execution timer, close page tags
+echo "
+
+		<br/>
+		<p class=\"page_time\" align=\"center\">Generated page in " . round($core->execution_time() - $timer_start, 3) . " seconds</p>
+		
+	</body>
+	
+</html>";    
 	
 	
 ?>

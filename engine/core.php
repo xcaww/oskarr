@@ -15,10 +15,10 @@ class core{
 		
 	}
 	
-	function generate_page($URL_page, $URL_i, $URL_mapped = false){
+	function generate_page($URL_page, $URL_query, $URL_i = false){
 	
 		require("./engine/gen/gen_page.php");
-		$pageGen = new generatePage($URL_page, $URL_i, $URL_mapped);
+		$pageGen = new generatePage($URL_page, $URL_query, $URL_i);
 		
 	}
 
@@ -74,7 +74,7 @@ class core{
 	
 	function show_header(){
 	
-	echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\">
+		echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\">
 
 	<head>
 		<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xmL; charset=iso-8859-1\" />
@@ -85,7 +85,7 @@ class core{
 	<body>
 	
 		<div id=\"header\" align=\"center\">
-				<img src=\"images/oskarr.png\" alt=\"oskarr\" />
+			<img src=\"images/oskarr.png\" alt=\"oskarr\" />
 		</div>	
 	
 		";
@@ -94,41 +94,41 @@ class core{
 	
 	function get_channel($channelAddress = false, $postID = false){
 	
-	if($channelAddress != false){
-	
-		$result = $this->database_query("
-		SELECT *
-		FROM channels
-		WHERE address = '" . $channelAddress . "'
-		LIMIT 1
-		");
-	
-	}elseif($postID != false){
-	
-		$result = $this->database_query("
-		SELECT channel
-		FROM posts
-		WHERE id = '" . $postID . "'
-		LIMIT 1
-		");
+		if($channelAddress != false){
 		
-		while($row = mysql_fetch_array($result)){
+			$result = $this->database_query("
+			SELECT *
+			FROM channels
+			WHERE address = '" . $channelAddress . "'
+			LIMIT 1
+			");
 		
-			$channelID = $row['channel'];
+		}elseif($postID != false){
+		
+			$result = $this->database_query("
+			SELECT channel
+			FROM posts
+			WHERE id = '" . $postID . "'
+			LIMIT 1
+			");
 			
-		}
+			while($row = mysql_fetch_array($result)){
+			
+				$channelID = $row['channel'];
+				
+			}
+			
+			mysql_free_result($result);
+			unset($row);
 		
-		mysql_free_result($result);
-		unset($row);
-	
-		$result = $this->database_query("
-		SELECT *
-		FROM channels
-		WHERE id = '" . $channelID . "'
-		LIMIT 1
-		");
-	
-	}
+			$result = $this->database_query("
+			SELECT *
+			FROM channels
+			WHERE id = '" . $channelID . "'
+			LIMIT 1
+			");
+		
+		}
 	
 		while($row = mysql_fetch_array($result)){
 		

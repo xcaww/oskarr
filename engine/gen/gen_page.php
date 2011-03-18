@@ -2,18 +2,18 @@
 
 class generatePage extends core{
 
-	function __construct($pageIdentifier, $pageQuery, $mappedPage = false){
+	function __construct($pageIdentifier, $pageQuery, $pageNumber){
 	
 		$this->page = $pageIdentifier;
 		$this->query = $pageQuery;
 		
-		if($mappedPage != false){
+		if($pageNumber != false){
 		
-			$this->mapped = $mappedPage;
+			$this->number = $mappedPage;
 			
 		}else{
 		
-			$this->mapped = false;
+			$this->number = false;
 			
 		}
 		
@@ -26,13 +26,13 @@ class generatePage extends core{
 
 	function validate_query(){
 
-		if(ctype_alnum($this->page) == true && ctype_alnum($this->query) == true && strlen($this->page) < 33 && strlen($this->query) < 33){
+		if(ctype_alnum($this->page) == true && ctype_alnum($this->query) == true && strlen($this->page) < 33 && strlen($this->query) < 57){
 		
 			return true;
 			
 		}else{
 
-			parent::send_error_log("bad page query: " . $this->page . "?" . $this->query);
+			parent::send_error_log("bad page query: " . $this->page . "?" . $this->query . " -> " . $this->number);
 			
 		}
 
@@ -76,16 +76,16 @@ class generatePage extends core{
 			
 		}
 		
+		$this->pageDetails['query'] = $this->query;
+		$this->pageDetails['number'] = $this->number;
 		return true;
 
 	}
 
 	function generate_page(){
 			
-		require("./engine/page/" . $this->pageDetails['address'] . "/producer/page_producer.php");
-
-		$producer = new pageProducer($this->pageDetails, $this->query, $this->mapped);
-		$producer->produce_page();	
+		require("./engine/page/page_producer.php");
+		$producer = new pageProducer($this->pageDetails, $this->query);
 		
 	}
 

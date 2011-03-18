@@ -20,5 +20,11 @@ class template extends core{
 	
 	}
 	
+	function do_function(){
+	
+	//DO data collection, conversions, call other functions, remote library functions, etc...
+	
+	}
+	
 }
 ?>

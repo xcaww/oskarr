@@ -8,9 +8,7 @@ function build_page($pageData){
 	
 	";
 	
-		echo "		<link href=\".\engine\page\\{$pageData['pageAddress']}\product\\{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
-		
-		<table border=\"0\" cellspacing=\"0\"> <!-- Post Table -->
+		echo "	<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"> <!-- Post Table -->
 		
 			<tr> 
 			

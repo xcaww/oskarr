@@ -2,12 +2,12 @@
 
 class channel extends core{
 
-	function __construct($page, $channelAddress){
+	function __construct($channel, $page){
 		
 		parent::database_connect();
 		$this->pageNumber = $page;
 		$this->limitLength = "10";
-		$this->channel = parent::get_channel($channelAddress, false);
+		$this->channel = parent::get_channel($channel, false);
 		$this->eval_max_pages();
 		$this->eval_limits();
 		

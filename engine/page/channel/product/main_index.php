@@ -8,7 +8,8 @@ function build_page($pageData){
 
 	foreach($pageData['thread'] as $thread){
 	
-		echo "		<table border=\"0\" cellspacing=\"0\"> <!-- Post Table -->
+		echo "		<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"> <!-- Post Table -->
+		
 			<tr>
 			
 				<td colspan=\"2\">
@@ -33,7 +34,7 @@ function build_page($pageData){
 					
 					<div id=\"post_image\">	
 					
-						<img src=\"./i/{$pageData['channelAddress']}/{$thread['image']}\" alt=\"{$thread['image']}\" />
+						<img src=\"./i/{$pageData['pageQuery']}/{$thread['image']}\" alt=\"{$thread['image']}\" />
 						
 					</div>
 		
@@ -89,7 +90,7 @@ function build_page($pageData){
 
 					<div id=\"post_image\">					
 
-						<img src=\"./i/{$pageData['channelAddress']}/{$post['image']}\" alt=\"{$post['image']}\" />
+						<img src=\"./i/{$pageData['pageQuery']}/{$post['image']}\" alt=\"{$post['image']}\" />
 						
 					</div>
 

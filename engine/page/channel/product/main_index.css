@@ -40,16 +40,6 @@ text-decoration:none;
 color:#4292d5;
 }
 
-#post_title {
-background-color:#efefef;
-font-family:Consolas;
-font-size:12.5pt;
-color:#4292d5;
-margin:0;
-padding:3px 5px;
-height: 25px;
-}
-
 #post {
 width:100%;
 vertical-align:text-top;

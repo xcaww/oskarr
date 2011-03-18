@@ -12,14 +12,23 @@ margin:0;
 padding:4px 0 4px 4px;
 }
 
-#post_title {
-background-color:#efefef;
+#post_title_op{
+background-color:#6e6e6e;
 font-family:Consolas;
 font-size:12.5pt;
-color:#4292d5;
+color:#FFF;
 margin:0;
 padding:3px 5px;
-height: 25px;
+height: 23px;
+}
+
+#post_title_op a{
+color:#FFF;
+text-decoration:none;
+}
+
+#post_title_op a:hover {
+color:#4292d5;
 }
 
 #post {
