@@ -19,14 +19,19 @@
 */
 
 
-//load core function library + logger
+//load core function library + database class
 require("./engine/core.php");
 require("./engine/database.php");
 
 //Let's roll...
 $core = new core();
-$timer_start = $core->execution_time(); 
-$core->show_header();
+$module['moduleName'] = "pagebits"; 
+$module['execution_start'] = $core->execution_time(); 
+$module['moduleQuery'] = "header";
+
+$header = $core->call_module($module);  
+echo $header['header'];	
+
 $core->database_connect();
 
 //GET i VAR
@@ -89,14 +94,7 @@ if(isset($_GET['page'])){
 
 
 //end execution timer, close page tags
-echo "
-
-		<br/>
-		<p class=\"page_time\" align=\"center\">Generated page in " . round($core->execution_time() - $timer_start, 3) . " seconds</p>
-		
-	</body>
-	
-</html>";    
-	
-	
+$module['moduleQuery'] = "execution"; 
+$execution_time = $core->call_module($module);  
+echo $execution_time['execution'];	
 ?>

@@ -22,12 +22,34 @@ class core{
 		
 	}
 	
-	function call_module($module){
+	function get_base_dir(){
 	
-		require("./engine/module/" . $module['moduleName'] . "/" . $module['moduleName'] . ".php");
-		$this->module = new module($module);
-		return $this->module->process_module();
+		echo dirname($_SERVER['SCRIPT_NAME']);
+		
+	}
 	
+	function require_file_once($fileRequest){
+	
+		if(file_exists($fileRequest)){
+		
+			require_once($fileRequest);
+			
+		}else{
+
+			$this->send_error_log("require once: " . $fileRequest);
+			
+		}
+		
+	}
+	
+	function call_module($module){//TODO, add a modules table to database
+		
+		$this->require_file_once("./engine/module/" . $module['moduleName'] . "/" . $module['moduleName'] . ".php");
+		
+		$this->module = new $module['moduleName']($module);
+		$moduleData = $this->module->process_module();
+		
+		return $moduleData;
 	}
 
 	function execution_time(){ 
@@ -79,26 +101,6 @@ class core{
 		exit();
 		
 	}	
-	
-	function show_header(){
-	
-		echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\">
-
-	<head>
-		<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xmL; charset=iso-8859-1\" />
-		<title>oskarr</title>
-		<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\" />
-	</head>
-	
-	<body>
-	
-		<div id=\"header\" align=\"center\">
-			<img src=\"images/oskarr.png\" alt=\"oskarr\" />
-		</div>	
-	
-		";
-	
-	}
 	
 	function get_channel($channelAddress = false, $postID = false){
 	

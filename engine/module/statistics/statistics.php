@@ -1,6 +1,6 @@
 <?php
 
-class module extends core{
+class statistics extends core{
 
 	function __construct($module){
 	
@@ -11,10 +11,21 @@ class module extends core{
 	function get_statistics($statistic){
 	
 		$statisticResult = false;
+		
+		/*if(substr($statistic, 0, 1) == "@"){//@variable_variable_variable etc...
+		
+			$splitStatisticVars = explode("_", substr($statistic, 0, 1));
+
+		}*/
 	
-		switch ($statistic){
+		switch($statistic){
 	
 			case "posts":
+			
+				$result = parent::database_query("
+				SELECT id
+				FROM posts
+				");
 				
 			break;
 			case "channels":
@@ -23,27 +34,18 @@ class module extends core{
 				SELECT id
 				FROM channels
 				");
-				
-				if(mysql_num_rows($result)){
-		
-					$statisticResult = (string) mysql_num_rows($result);
-					
-				}
 
-			break;
-			default:
-				parent::send_error_log("module error: failed statistic selection");
 			break;
 			
 		}
 		
-		if($statisticResult != false){
-	
-			return $statisticResult;
-			
+		if(mysql_num_rows($result)){
+		
+			return (string) mysql_num_rows($result);
+					
 		}else{
 		
-			parent::send_error_log("module error: failed statistic data");
+			parent::send_error_log("module error: Statistics -> failed statistic data");
 			
 		}
 	

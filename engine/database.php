@@ -4,7 +4,7 @@ class database extends core{
 
 	function connect_database(){
 	
-		$this->connectionLink = mysql_connect("localhost", "root", "rscbU");
+		$this->connectionLink = mysql_connect("localhost", "root", "cheeseh44");
 		
 		if($this->connectionLink){
 		

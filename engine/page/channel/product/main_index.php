@@ -2,7 +2,7 @@
 
 function build_page($pageData){
 
-	echo "<link href=\".\engine\page\\{$pageData['pageAddress']}\product\\{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
+	echo "<link href=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
 	
 	";
 
