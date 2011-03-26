@@ -5,7 +5,7 @@ class pageConstructor extends pageProducer{
 	function __construct($pageDetails){
 	
 		require_once("./engine/page/" . $pageDetails['address'] . "/function/page_function.php"); //core functions; other function scripts may be called later on during this class!
-		$this->template = new template(/*Pass pageDetails variable here?*/);
+		$this->template = new template($pageDetails);
 	
 	}
 	

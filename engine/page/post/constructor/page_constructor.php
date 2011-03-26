@@ -14,6 +14,7 @@ class pageConstructor extends pageProducer{
 		$this->arrayItems['template'] = "main_index.php";
 		$this->arrayItems['styles'] = "main_index.css";
 		$this->arrayItems['thread'] = $this->post->get_thread();
+		$this->arrayItems['settings']['board_url'] = parent::get_settings("board_url");
 		
 		return $this->arrayItems;
 		

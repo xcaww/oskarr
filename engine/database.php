@@ -4,7 +4,7 @@ class database extends core{
 
 	function connect_database(){
 	
-		$this->connectionLink = mysql_connect("localhost", "root", "cheeseh44");
+		$this->connectionLink = mysql_connect("localhost", "root", "pass");
 		
 		if($this->connectionLink){
 		
@@ -12,7 +12,7 @@ class database extends core{
 			
 		}else{
 		
-			parent::send_error_log("Could not create a connection the to database");
+			parent::send_error_log("Could not create a connection to the database");
 			
 		}
 		

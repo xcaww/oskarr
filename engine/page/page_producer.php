@@ -38,7 +38,7 @@ class pageProducer extends core{
 			$this->add_array_item($key, $data);
 			
 		}
-		
+
 		require("./engine/page/" . $this->pageDataArray['pageAddress'] . "/product/" . $this->pageDataArray['template']);
 		build_page($this->pageDataArray);
 	

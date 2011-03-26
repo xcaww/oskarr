@@ -13,6 +13,7 @@
 */
 
 function build_page($pageData){
+    
 	echo "<link href=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
 
 		<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\"> <!-- Post Table -->
@@ -50,8 +51,8 @@ function build_page($pageData){
 						<p>";
 		
 	foreach($pageData['channels'] as $channel){
-		
-		echo "<a href=\"?channel={$channel['address']}\">/{$channel['name']}/</a>";
+
+		echo "<a href=\"{$pageData['settings']['board_url']}/{$channel['address']}\">/{$channel['name']}/</a>";
 		
 	}
 	

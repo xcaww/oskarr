@@ -2,7 +2,7 @@
 
 function build_page($pageData){
 
-	echo "<link href=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
+	echo "<link href=\"{$pageData['settings']['board_url']}/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
 	
 	";
 
@@ -34,7 +34,7 @@ function build_page($pageData){
 					
 					<div id=\"post_image\">	
 					
-						<img src=\"./i/{$pageData['pageQuery']}/{$thread['image']}\" alt=\"{$thread['image']}\" />
+						<img src=\"{$pageData['settings']['board_url']}/i/{$pageData['pageQuery']}/{$thread['image']}\" alt=\"{$thread['image']}\" />
 						
 					</div>
 		
@@ -44,7 +44,7 @@ function build_page($pageData){
 
 					<div id=\"post_title_op\">
 
-							<a href=\"?post={$thread['id']}\">{$thread['title']}</a>
+							<a href=\"{$pageData['settings']['board_url']}/{$pageData['pageQuery']}/p{$thread['id']}\">{$thread['title']}</a>
 
 					</div>
 
@@ -90,7 +90,7 @@ function build_page($pageData){
 
 					<div id=\"post_image\">					
 
-						<img src=\"./i/{$pageData['pageQuery']}/{$post['image']}\" alt=\"{$post['image']}\" />
+						<img src=\"{$pageData['settings']['board_url']}/i/{$pageData['pageQuery']}/{$post['image']}\" alt=\"{$post['image']}\" />
 						
 					</div>
 

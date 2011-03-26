@@ -2,9 +2,12 @@
 
 class pagebits extends core{
 
-	function __construct($module){
+	function __construct($moduleName, $moduleQuery, $moduleString, $moduleArray){
 	
-		$this->moduleData = $module;
+		$this->moduleData['name'] = $moduleName;
+		$this->moduleData['query'] = $moduleQuery;
+		$this->moduleData['string'] = $moduleString;
+		$this->moduleData['array'] = $moduleArray;
 	
 	}
 	
@@ -31,18 +34,23 @@ class pagebits extends core{
 		";
 			
 			break;
+			case "footer":
+
+			    $pagebitData = "
+				
+	</body>
+
+</html>";
+
+			break;
 			case "execution":
-			
-				$pageTime = round((float) parent::execution_time() - (float) $this->moduleData['execution_start'], 4);
+
+				$pageTime = round((float) parent::execution_time() - (float) $this->moduleData['string'], 4);
 			
 				$pagebitData = "
 
 		<br/>
-		<p class=\"page_time\" align=\"center\">Generated page in {$pageTime} seconds</p>
-		
-	</body>
-	
-</html>";
+		<p class=\"page_time\" align=\"center\">Generated page in {$pageTime} seconds</p>";
 			
 			break;
 			
@@ -55,7 +63,7 @@ class pagebits extends core{
 	function process_module(){
 	
 		parent::database_connect();
-		$query = explode(", ", $this->moduleData['moduleQuery']);
+		$query = explode(", ", $this->moduleData['query']);
 	
 		foreach($query as $pagebit){
 

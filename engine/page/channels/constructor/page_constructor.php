@@ -16,6 +16,7 @@ class pageConstructor extends pageProducer{
 		$this->arrayItems['styles'] = "main_index.css";
 		$this->arrayItems['channels'] = $this->channels->get_channels();
 		$this->arrayItems['statistics'] = $this->channels->get_channel_statistics();
+		$this->arrayItems['settings']['board_url'] = parent::get_settings("board_url");
 		
 		return $this->arrayItems;
 		

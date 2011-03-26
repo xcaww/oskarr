@@ -1,5 +1,4 @@
 <?php
-
 class core{
 
 	function database_connect(){
@@ -20,6 +19,29 @@ class core{
 		require("./engine/page.php");
 		$pageGen = new generatePage($URL_page, $URL_query, $URL_i);
 		
+	}
+
+	function get_settings($settings){
+
+	   $this->boardSettings = new boardSettings();
+	   $this->settings_query = explode(", ", $settings);
+
+	    if(sizeof($this->settings_query) > 1){
+
+		foreach($this->settings_query as $setting){
+
+		    $this->setting[$setting] = $this->boardSettings->settings[$setting];
+
+		}
+
+		return $this->setting;
+
+	    }else{
+
+		return (string) $this->boardSettings->settings[$this->settings_query[0]];
+
+	    }
+
 	}
 	
 	function get_base_dir(){
@@ -42,14 +64,13 @@ class core{
 		
 	}
 	
-	function call_module($module){//TODO, add a modules table to database
-		
-		$this->require_file_once("./engine/module/" . $module['moduleName'] . "/" . $module['moduleName'] . ".php");
-		
-		$this->module = new $module['moduleName']($module);
+	function call_module($moduleName, $moduleQuery, $moduleString = false, $moduleArray = false){//TODO add a modules table to database
+
+		$this->require_file_once("./engine/module/" . $moduleName . "/" . $moduleName . ".php");
+		$this->module = new $moduleName($moduleName, $moduleQuery, $moduleString, $moduleArray);
 		$moduleData = $this->module->process_module();
-		
 		return $moduleData;
+
 	}
 
 	function execution_time(){ 
@@ -150,8 +171,7 @@ class core{
 
 		mysql_free_result($result);
 		
-		//hmmm...
-		return @$found_channel;
+		return $found_channel;
 		
 	}
 	

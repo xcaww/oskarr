@@ -15,6 +15,8 @@ class pageConstructor extends pageProducer{
 		$this->arrayItems['styles'] = "main_index.css";	
 		$this->arrayItems['thread'] = $this->channel->get_threads();
 		$this->arrayItems['post'] = null;
+		$this->arrayItems['channel'] = $this->channel->channel;
+		$this->arrayItems['settings']['board_url'] = parent::get_settings("board_url");
 		
 		foreach($this->arrayItems['thread'] as $thread){
 

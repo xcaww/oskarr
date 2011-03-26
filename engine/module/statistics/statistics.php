@@ -2,9 +2,10 @@
 
 class statistics extends core{
 
-	function __construct($module){
+	function __construct($moduleName, $moduleQuery, $moduleString, $moduleArray){
 	
-		$this->moduleData = $module;
+		$this->moduleData['name'] = $moduleName;
+		$this->moduleData['query'] = $moduleQuery;
 	
 	}
 	
@@ -54,7 +55,7 @@ class statistics extends core{
 	function process_module(){
 	
 		parent::database_connect();
-		$query = explode(", ", $this->moduleData['moduleQuery']);
+		$query = explode(", ", $this->moduleData['query']);
 	
 		foreach($query as $statistic){
 
