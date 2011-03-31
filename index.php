@@ -19,16 +19,13 @@
 */
 
 //load core function library + settings + database class
-require_once("./engine/core.php");
-require_once("./engine/settings.php");
-require_once("./engine/database.php");
+include("./engine/core.php");
+include("./engine/settings.php");
+include("./engine/database.php");
+include("./engine/page.php");
 
 //Let's roll...
-$core = new core();
-$execution_start = $core->execution_time();
-$core->database_connect();
-$header = $core->call_module("pagebits", "header");
-echo $header['header'];
+$execution_start = execution_time();
 
     //GET i VAR
     if(isset($_GET['i'])){
@@ -55,7 +52,7 @@ echo $header['header'];
 	    if(ctype_alnum($_GET['page'])){//TODO add unknown page error handler
 
 		    $URL_page = (string) $_GET['page'];
-		    $core->generate_page($URL_page, $URL_i);
+		    $page = new generatePage($URL_page, $URL_i);
 
 	    }
     //GET post VAR
@@ -64,7 +61,7 @@ echo $header['header'];
 	    if(ctype_alnum($_GET['post'])){
 
 		    $URL_post = (string) $_GET['post'];
-		    $core->generate_page("post", $URL_post);
+		    $page = new generatePage("post", $URL_post);
 
 	    }
     //GET channel VAR
@@ -73,7 +70,7 @@ echo $header['header'];
 	    if(ctype_alnum($_GET['channel'])){
 
 		    $URL_channel = (string) $_GET['channel'];
-		    $core->generate_page("channel", $URL_channel, $URL_i);
+		    $page = new generatePage("channel", $URL_channel, $URL_i);
 
 	    }
     //GET handle VAR
@@ -82,7 +79,7 @@ echo $header['header'];
 	    if(ctype_alnum($_GET['handle'])){
 
 		    $URL_handle = (string) $_GET['handle'];
-		    //Needs to be written...
+		    //TODO Needs to be written...
 
 	    }
 
@@ -90,10 +87,10 @@ echo $header['header'];
 
 
 //execution time
-$execution_time = $core->call_module("pagebits", "execution", $execution_start);
+$execution_time = call_module("pagebits", "execution", $execution_start);
 echo $execution_time['execution'];
 
 //close page
-$footer = $core->call_module("pagebits", "footer");
+$footer = call_module("pagebits", "footer");
 echo $footer['footer'];
 ?>

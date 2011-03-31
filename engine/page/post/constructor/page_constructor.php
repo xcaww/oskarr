@@ -1,6 +1,6 @@
 <?php
 
-class pageConstructor extends pageProducer{
+class pageConstructor{
 
 	function __construct($pageDetails){
 	
@@ -14,7 +14,7 @@ class pageConstructor extends pageProducer{
 		$this->arrayItems['template'] = "main_index.php";
 		$this->arrayItems['styles'] = "main_index.css";
 		$this->arrayItems['thread'] = $this->post->get_thread();
-		$this->arrayItems['settings']['board_url'] = parent::get_settings("board_url");
+		$this->arrayItems['settings']['board_url'] = get_settings();
 		
 		return $this->arrayItems;
 		

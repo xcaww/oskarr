@@ -36,6 +36,14 @@ color:#FFF;
 text-decoration:none;
 }
 
+#post_title_op a.view{
+color:#4da4e0;
+float:right;
+font-size: 10pt;
+padding: 4px 6px 0;
+text-decoration:none;
+}
+
 #post_title_op a:hover {
 color:#4292d5;
 }

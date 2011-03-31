@@ -1,44 +1,61 @@
 <?php
-class core{
 
 	function database_connect(){
 	
-		$this->database = new database();
-		$this->database->connect_database();
-		
+		$coreDatabase = new database();
+		$coreDatabase->connect_database();
+		return $coreDatabase;
+
 	}
 
 	function database_query($databaseQuery){
-	
-		return $this->database->query($databaseQuery);
+	    
+		$coreDatabase = database_connect();
+		return $coreDatabase->query($databaseQuery);
 		
 	}
 	
 	function generate_page($URL_page, $URL_query, $URL_i = false){
 	
-		require("./engine/page.php");
-		$pageGen = new generatePage($URL_page, $URL_query, $URL_i);
+		$corePageGen = new generatePage($URL_page, $URL_query, $URL_i);
 		
 	}
 
-	function get_settings($settings){
+	function get_settings($coreSettings = false){
 
-	   $this->boardSettings = new boardSettings();
-	   $this->settings_query = explode(", ", $settings);
+	   $coreBoardSettings = new boardSettings();
 
-	    if(sizeof($this->settings_query) > 1){
+	   if($coreSettings != false){
+	       
+	       $coreSettingsQuery = explode(", ", $coreSettings);
 
-		foreach($this->settings_query as $setting){
+	   }else{
 
-		    $this->setting[$setting] = $this->boardSettings->settings[$setting];
+	       $coreSettingsQuery = false;
+
+	   }
+
+	    if(sizeof($coreSettingsQuery) > 1){
+
+		foreach($coreSettingsQuery as $setting){
+
+		    $coreSetting[$setting] = (string) $coreBoardSettings->settings[$setting];
 
 		}
 
-		return $this->setting;
+		return $coreSetting;
+
+	    }elseif(($coreSettingsQuery != false)){
+
+		return $coreBoardSettings->settings[$coreSettings];
+
+	    }elseif(($coreSettingsQuery == false)){
+
+		return $coreBoardSettings->settings;
 
 	    }else{
 
-		return (string) $this->boardSettings->settings[$this->settings_query[0]];
+		return $coreBoardSettings->settings;
 
 	    }
 
@@ -58,63 +75,63 @@ class core{
 			
 		}else{
 
-			$this->send_error_log("require once: " . $fileRequest);
+			send_error_log("require once: " . $fileRequest);
 			
 		}
 		
 	}
 	
-	function call_module($moduleName, $moduleQuery, $moduleString = false, $moduleArray = false){//TODO add a modules table to database
+	function call_module($coreModuleName, $coreModuleQuery, $coreModuleString = false, $coreModuleArray = false){//TODO add a modules table to database
 
-		$this->require_file_once("./engine/module/" . $moduleName . "/" . $moduleName . ".php");
-		$this->module = new $moduleName($moduleName, $moduleQuery, $moduleString, $moduleArray);
-		$moduleData = $this->module->process_module();
-		return $moduleData;
+		require_file_once("./engine/module/" . $coreModuleName . "/" . $coreModuleName . ".php");
+		$coreModule = new $coreModuleName($coreModuleName, $coreModuleQuery, $coreModuleString, $coreModuleArray);
+		$coreModuleData = $coreModule->process_module();
+		return $coreModuleData;
 
 	}
 
 	function execution_time(){ 
 	
 		list ($msec, $sec) = explode(' ', microtime()); 
-		$execution_time = (float)$msec + (float)$sec; 
-		return $execution_time; 
+		$coreExecutionTime = (float)$msec + (float)$sec;
+		return $coreExecutionTime;
 		
 	} 	
 	
-	function send_log($message){
+	function send_log($coreMessage){
 	
-		$time = time();
+		$coreTime = time();
 	
-		$this->database_query("
+		database_query("
 		INSERT INTO 
 		log
 		(time, message) 
 		VALUES 
-		('" . $time . "', '" . $message . "')
+		('" . $coreTime . "', '" . $coreMessage . "')
 		");
 		
 	}
 	
-	function send_error_log($errorMessage){
+	function send_error_log($coreErrorMessage){
 	
 		if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
 		
-			$loggedIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			$coreLoggedIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
 			
 		}else{ 
 		
-			$loggedIP = $_SERVER['REMOTE_ADDR'];
+			$coreLoggedIP = $_SERVER['REMOTE_ADDR'];
 			
 		}
 	
-		$time = time();
+		$coreTime = time();
 	
-		$this->database_query("
+		database_query("
 		INSERT INTO 
 		error_log
 		(time, ip, message) 
 		VALUES 
-		('" . $time . "', '" . $loggedIP . "', '" . addslashes($errorMessage) . "')
+		('" . $coreTime . "', '" . $coreLoggedIP . "', '" . addslashes($coreErrorMessage) . "')
 		")or die(mysql_error());
 		
 		
@@ -123,39 +140,39 @@ class core{
 		
 	}	
 	
-	function get_channel($channelAddress = false, $postID = false){
+	function get_channel($coreChannelAddress = false, $corePostID = false){
 	
-		if($channelAddress != false){
+		if($coreChannelAddress != false){
 		
-			$result = $this->database_query("
+			$result = database_query("
 			SELECT *
 			FROM channels
-			WHERE address = '" . $channelAddress . "'
+			WHERE address = '" . $coreChannelAddress . "'
 			LIMIT 1
 			");
 		
-		}elseif($postID != false){
+		}elseif($corePostID != false){
 		
-			$result = $this->database_query("
+			$result = database_query("
 			SELECT channel
 			FROM posts
-			WHERE id = '" . $postID . "'
+			WHERE id = '" . $corePostID . "'
 			LIMIT 1
 			");
 			
 			while($row = mysql_fetch_array($result)){
 			
-				$channelID = $row['channel'];
+				$coreChannelID = $row['channel'];
 				
 			}
 			
 			mysql_free_result($result);
 			unset($row);
 		
-			$result = $this->database_query("
+			$result = database_query("
 			SELECT *
 			FROM channels
-			WHERE id = '" . $channelID . "'
+			WHERE id = '" . $coreChannelID . "'
 			LIMIT 1
 			");
 		
@@ -163,18 +180,16 @@ class core{
 	
 		while($row = mysql_fetch_array($result)){
 		
-			$found_channel['id'] = $row['id'];
-			$found_channel['name'] = $row['name'];
-			$found_channel['address'] = $row['address'];
+			$coreFoundChannel['id'] = $row['id'];
+			$coreFoundChannel['name'] = $row['name'];
+			$coreFoundChannel['address'] = $row['address'];
 			
 		}
 
 		mysql_free_result($result);
 		
-		return $found_channel;
+		return $coreFoundChannel;
 		
 	}
-	
-}
 	
 ?>

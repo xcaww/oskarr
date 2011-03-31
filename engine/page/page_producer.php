@@ -1,6 +1,6 @@
 <?php
 
-class pageProducer extends core{
+class pageProducer{
 
 	function __construct($pageDetails){
 	

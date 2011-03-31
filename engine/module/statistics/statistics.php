@@ -1,6 +1,6 @@
 <?php
 
-class statistics extends core{
+class statistics{
 
 	function __construct($moduleName, $moduleQuery, $moduleString, $moduleArray){
 	
@@ -23,7 +23,7 @@ class statistics extends core{
 	
 			case "posts":
 			
-				$result = parent::database_query("
+				$result = database_query("
 				SELECT id
 				FROM posts
 				");
@@ -31,7 +31,7 @@ class statistics extends core{
 			break;
 			case "channels":
 			
-				$result = parent::database_query("
+				$result = database_query("
 				SELECT id
 				FROM channels
 				");
@@ -46,7 +46,7 @@ class statistics extends core{
 					
 		}else{
 		
-			parent::send_error_log("module error: Statistics -> failed statistic data");
+			send_error_log("module error: Statistics -> failed statistic data");
 			
 		}
 	
@@ -54,7 +54,7 @@ class statistics extends core{
 	
 	function process_module(){
 	
-		parent::database_connect();
+		database_connect();
 		$query = explode(", ", $this->moduleData['query']);
 	
 		foreach($query as $statistic){

@@ -1,18 +1,20 @@
 <?php
 
-class post extends core{
+class post{
 
 	function __construct($threadID){
 		
-		parent::database_connect();
+		database_connect();
+		$nav = call_module("pagebits", "nav", "Channels");
+		echo $nav['nav'];
 		$this->threadID = $threadID;
-		$this->channel = parent::get_channel(false, $threadID);
+		$this->channel = get_channel(false, $threadID);
 		
 	}
 	
 	function get_thread(){
 	
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT *
 		FROM posts
 		WHERE identifier = 'thread' AND id = '" . $this->threadID . "'
@@ -32,7 +34,7 @@ class post extends core{
 		mysql_free_result($result);
 		$i = 0;
 	
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT *
 		FROM posts
 		WHERE identifier = 'post' AND title = '" . $this->threadID . "'
@@ -56,7 +58,7 @@ class post extends core{
 			
 		}
 		
-		$thread['channel'] = $this->channel['address'];
+		$thread['channel'] = $this->channel;
 		$thread['post'] = $post;
 		return $thread;
 	

@@ -1,13 +1,15 @@
 <?php
 
-class channel extends core{
+class channel{
 
 	function __construct($channel, $page){
-		
-		parent::database_connect();
+
+		$nav = call_module("pagebits", "nav", "Channels");
+		echo $nav['nav'];
+		database_connect();
 		$this->pageNumber = $page;
 		$this->limitLength = "10";
-		$this->channel = parent::get_channel($channel, false);
+		$this->channel = get_channel($channel, false);
 		$this->eval_max_pages();
 		$this->eval_limits();
 		
@@ -15,7 +17,7 @@ class channel extends core{
 	
 	function eval_max_pages(){
 	
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT id
 		FROM posts
 		WHERE channel = '" . $this->channel['id'] . "' AND identifier = 'thread'
@@ -57,7 +59,7 @@ class channel extends core{
 	
 	function eval_thread_activity($thread){
 	
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT * 
 		FROM posts
 		WHERE image <> '0' AND id = '" . $thread . "'
@@ -76,7 +78,7 @@ class channel extends core{
 		
 		mysql_free_result($result);
 		
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT * 
 		FROM posts
 		WHERE title = '" . $thread . "' AND identifier = 'post'
@@ -100,7 +102,7 @@ class channel extends core{
 	
 		$i = 0;
 	
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT *
 		FROM posts
 		WHERE identifier = 'thread' AND channel = '" . $this->channel['id'] . "'
@@ -129,7 +131,7 @@ class channel extends core{
 	
 		$i = 0;
 	
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT *
 		FROM posts
 		WHERE identifier = 'post' AND title = '" . $threadID . "' AND channel = '" . $this->channel['id'] . "'

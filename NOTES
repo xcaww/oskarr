@@ -24,6 +24,13 @@ Preformatted pages (index, channel lists, etc)
 >Custom loaded, static pages. Given generic page template for structure and consistency?
 
 
+~Thread Image Viewing
+In the current beta version of oskarr, the top of each thread in a channel index informs you of the amount of image in the thread.
+The image count + " images" will be a link to a page layout of each image, this page will be a flexible table populated with every image in the thread, as thumbnails.
+A slider or other option will be operated from the top of the table which adjusts the size of the thumbnails in the table so they can be viewed at a preferred size of the user.
+Bandwidth + connection load of multiple large images?
+
+
 ~Users
 (proposed policy on minimal direct user logging, TBA)
 copy&paste from my springboard:

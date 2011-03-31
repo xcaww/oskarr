@@ -1,6 +1,6 @@
 <?php
 
-class database extends core{
+class database{
 
 	function connect_database(){
 	
@@ -12,7 +12,7 @@ class database extends core{
 			
 		}else{
 		
-			parent::send_error_log("Could not create a connection to the database");
+			send_error_log("Could not create a connection to the database");
 			
 		}
 		
@@ -25,7 +25,7 @@ class database extends core{
 		if(!$query){
 		
 			$errorMessage = (string) "query: " . mysql_error();
-			parent::send_error_log($errorMessage);
+			send_error_log($errorMessage);
 				
 		}else{
 			

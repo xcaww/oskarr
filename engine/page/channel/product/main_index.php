@@ -2,7 +2,9 @@
 
 function build_page($pageData){
 
-	echo "<link href=\"{$pageData['settings']['board_url']}/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
+	echo "	    <div id=\"container\">
+
+	    <link href=\"{$pageData['settings']['board_url']}/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
 	
 	";
 
@@ -45,6 +47,7 @@ function build_page($pageData){
 					<div id=\"post_title_op\">
 
 							<a href=\"{$pageData['settings']['board_url']}/{$pageData['pageQuery']}/p{$thread['id']}\">{$thread['title']}</a>
+							<a href=\"{$pageData['settings']['board_url']}/{$pageData['pageQuery']}/p{$thread['id']}\" class=\"view\">view</a>
 
 					</div>
 
@@ -140,6 +143,8 @@ function build_page($pageData){
 	
 	}
 
+
+	echo "</div>";
 }
 
 ?>

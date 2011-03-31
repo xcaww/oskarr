@@ -1,22 +1,24 @@
 <?php
 
-class channels extends core{
+class channels{
 
 	function __construct(){
 	
-		parent::database_connect();
+		database_connect();
+		$nav = call_module("pagebits", "nav", "Channels");
+		echo $nav['nav'];
 	
 	}
 	
 	function get_channel_statistics(){
 	
-		return parent::call_module("statistics", "channels");
+		return call_module("statistics", "channels");
 		
 	}
 	
 	function get_channels(){
 	
-		$result = parent::database_query("
+		$result = database_query("
 		SELECT *
 		FROM channels
 		");

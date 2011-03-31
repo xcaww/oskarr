@@ -1,6 +1,6 @@
 <?php
 
-class pageConstructor extends pageProducer{
+class pageConstructor{
 
 	function __construct($pageDetails){
 	
@@ -16,7 +16,7 @@ class pageConstructor extends pageProducer{
 		$this->arrayItems['thread'] = $this->channel->get_threads();
 		$this->arrayItems['post'] = null;
 		$this->arrayItems['channel'] = $this->channel->channel;
-		$this->arrayItems['settings']['board_url'] = parent::get_settings("board_url");
+		$this->arrayItems['settings'] = get_settings();
 		
 		foreach($this->arrayItems['thread'] as $thread){
 

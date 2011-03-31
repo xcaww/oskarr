@@ -1,8 +1,8 @@
 <?php
 
-class generatePage extends core{
+class generatePage{
 
-	function __construct($pageIdentifier, $pageQuery, $pageNumber){
+	function __construct($pageIdentifier = false, $pageQuery = false, $pageNumber = false){
 	
 		$this->page = $pageIdentifier;
 		$this->query = $pageQuery;
@@ -17,7 +17,6 @@ class generatePage extends core{
 			
 		}
 		
-		parent::database_connect();
 		$this->validate_query();
 		$this->find_page();
 		$this->generate_page();
@@ -32,7 +31,7 @@ class generatePage extends core{
 			
 		}else{
 		
-			parent::send_error_log("bad page query: " . $this->page . "?" . $this->query . " -> " . $this->number);
+			send_error_log("bad page query: " . $this->page . "?" . $this->query . " -> " . $this->number);
 			
 		}
 
@@ -42,15 +41,15 @@ class generatePage extends core{
 
 		if(ctype_digit($this->page)){
 		
-			$result = parent::database_query("
+			$result = database_query("
 			SELECT *
 			FROM pages
 			WHERE id = '" . $this->page . "'
 			");
 		
 		}elseif(ctype_alnum($this->page)){
-		
-			$result = parent::database_query("
+
+			$result = database_query("
 			SELECT *
 			FROM pages
 			WHERE address = '" . $this->page . "'
@@ -58,7 +57,7 @@ class generatePage extends core{
 		
 		}else{
 		
-			parent::send_error_log("bad page request: " . $this->page . "?" . $this->query);
+			send_error_log("bad page request: " . $this->page . "?" . $this->query);
 			
 		}
 
@@ -72,7 +71,7 @@ class generatePage extends core{
 		
 		if(!isset($this->pageDetails)){
 		
-			parent::send_error_log("could not find page: " . $this->page . "?" . $this->query);
+			send_error_log("could not find page: " . $this->page . "?" . $this->query);
 			
 		}
 		
@@ -84,7 +83,7 @@ class generatePage extends core{
 
 	function generate_page(){
 			
-		require("./engine/page/page_producer.php");
+		include("./engine/page/page_producer.php");
 		$producer = new pageProducer($this->pageDetails, $this->query);
 		
 	}

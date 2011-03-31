@@ -4,11 +4,14 @@ function build_page($pageData){
 
 	$thread = $pageData['thread'];
 
-	echo "<link href=\"{$pageData['settings']['board_url']}/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
+	echo "<link href=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/engine/page/{$pageData['pageAddress']}/product/{$pageData['styles']}\" rel=\"stylesheet\" type=\"text/css\" />
 	
-	";
+	<div id=\"container\">
+
+	    <p class=\"channel_name\" align=\"center\">
+	    <a href=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/{$pageData['thread']['channel']['address']}/\">/{$pageData['thread']['channel']['name']}/</a>";
 	
-	echo "	<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"> <!-- Post Table -->
+	echo "	<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"margin-top: 20px;\"> <!-- Post Table -->
 
 		<tr>
 
@@ -22,7 +25,7 @@ function build_page($pageData){
 
 				<div id=\"post_image\">
 
-					<img src=\"{$pageData['settings']['board_url']}/i/{$pageData['thread']['channel']}/{$thread['image']}\" alt=\"{$thread['image']}\" />
+					<img src=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/i/{$pageData['thread']['channel']['address']}/{$thread['image']}\" alt=\"{$thread['image']}\" />
 
 				</div>
 
@@ -32,7 +35,7 @@ function build_page($pageData){
 
 				<div id=\"post_title_op\">
 
-						<a href=\"{$pageData['settings']['board_url']}/{$pageData['thread']['channel']}/p{$thread['id']}\">{$thread['title']}</a>
+						<a href=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/{$pageData['thread']['channel']['address']}/p{$thread['id']}\">{$thread['title']}</a>
 
 				</div>
 
@@ -78,7 +81,7 @@ function build_page($pageData){
 
 				<div id=\"post_image\">
 
-					<img src=\"./i/{$pageData['thread']['channel']}/{$post['image']}\" alt=\"{$post['image']}\" />
+					<img src=\"" . dirname($_SERVER['SCRIPT_NAME']) . "/i/{$pageData['thread']['channel']['address']}/{$post['image']}\" alt=\"{$post['image']}\" />
 
 				</div>
 
@@ -124,7 +127,9 @@ function build_page($pageData){
 
     }
 
-    echo "<br/>";
+    echo "	</div>
+	
+	<br/>";
 	
 }
 

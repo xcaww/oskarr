@@ -1,0 +1,39 @@
+#nav_container {
+padding-top: 7px;
+background-color: #ebebeb;
+text-align: right;
+}
+
+#navigation {
+padding-bottom: 2px;
+margin-left: 9%;
+width: 82%;
+}
+
+#navlist li{
+display: inline;
+list-style-type: none;
+background-color: #f6f6f6;
+padding: 3px 2px 1px 2px;
+font-size: 10pt;
+margin-left: 3px;
+}
+
+#navlist li:hover{
+background-color: #FFF;
+}
+
+#navlist li#active{
+background-color: #FFF;
+border-bottom: none;
+}
+
+#navlist li a#active{
+border: none;
+}
+
+#navlist li a{
+color: #31a9e1;
+text-decoration: none;
+margin: 2px;
+}
